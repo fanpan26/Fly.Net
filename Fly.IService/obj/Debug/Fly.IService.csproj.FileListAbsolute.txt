@@ -1,0 +1,12 @@
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Fly.IService.dll
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Fly.IService.pdb
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Fly.Model.dll
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Fly.Model.pdb
+D:\Project\Fly.Net\Fly.IService\obj\Debug\Fly.IService.csprojResolveAssemblyReference.cache
+D:\Project\Fly.Net\Fly.IService\obj\Debug\Fly.IService.dll
+D:\Project\Fly.Net\Fly.IService\obj\Debug\Fly.IService.pdb
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Newtonsoft.Json.dll
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Newtonsoft.Json.xml
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Fly.Util.dll
+D:\Project\Fly.Net\Fly.IService\bin\Debug\Fly.Util.pdb
+D:\Project\Fly.Net\Fly.IService\bin\Debug\JWT.dll

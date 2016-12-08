@@ -1,0 +1,68 @@
+﻿@model Fly.Model.User
+<h2 class="page-title">用心中心</h2>
+<div class="wrap">
+    <div class="content">
+        @*<div class="fly-msg">您的邮箱尚未验证，这比较影响您的帐号安全，<a href="/user/activate/">立即去激活？</a></div>*@
+        <div class="fly-tab user-tab">
+            <span id="LAY-mine">
+                <a href="javascript:;" class="tab-this" type="mine-jie">我的求解（<cite>0</cite>）</a>
+                <a href="/user/message">我的消息</a>
+                <a href="/u/@Model.userid">我的主页</a>
+            </span>
+        </div>
+        <div class="user-mine">
+            <ul class="mine-view jie-row" style="display:block;">
+                
+            </ul>
+        </div>
+        <div id="LAY-page"></div>
+    </div>
+</div>
+
+<div class="edge">
+    <div class="user-about">
+        <a href="/user/set#avatar" title="修改头像">
+            <img class="user-avatar" src="@Model.photo">
+        </a>
+        <p>
+            <span style="color:#333">@Model.nickname</span>
+            <!--<span style="color:#c00;">超级管理员</span>
+             <span style="color:#5FB878;">管理员</span> -->
+        </p>
+        <p>
+            <span>加入时间：@Model.addtime.ToShortDateString()</span>
+            <span>
+                飞吻：<em style="color:#FF7200">@Model.score</em>
+            </span>
+        </p>
+        <p>
+            <span>城市：@Model.city</span>
+            <span>性别：@Model.sex</span>
+        </p>
+
+        <div class="user-looklog" style="padding-bottom:200px;">
+            <h3>最近访客</h3>
+            @{ 
+                IEnumerable<Fly.Model.UserVisitor> visitors = ViewBag.Visitors as IEnumerable<Fly.Model.UserVisitor>;
+            }
+            <span>
+                @foreach (var item in visitors)
+                {
+                <a href="/u/@item.userid">
+                    <img src="@item.photo">
+                    <cite>@item.nickname</cite>
+                    <i>@item.addtimestr</i>
+                </a>
+                }
+            </span>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        layui.use('user', function () {
+            console.log("加载完user");
+        });
+    </script>
+}

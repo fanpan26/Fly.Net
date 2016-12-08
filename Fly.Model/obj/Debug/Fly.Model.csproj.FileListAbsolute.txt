@@ -1,0 +1,10 @@
+D:\Project\Fly.Net\Fly.Model\bin\Debug\Fly.Model.dll
+D:\Project\Fly.Net\Fly.Model\bin\Debug\Fly.Model.pdb
+D:\Project\Fly.Net\Fly.Model\obj\Debug\Fly.Model.dll
+D:\Project\Fly.Net\Fly.Model\obj\Debug\Fly.Model.pdb
+D:\Project\Fly.Net\Fly.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Project\Fly.Net\Fly.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Project\Fly.Net\Fly.Model\obj\Debug\Fly.Model.csprojResolveAssemblyReference.cache
+D:\Project\Fly.Net\Fly.Model\bin\Debug\Fly.Util.dll
+D:\Project\Fly.Net\Fly.Model\bin\Debug\Fly.Util.pdb
+D:\Project\Fly.Net\Fly.Model\bin\Debug\JWT.dll

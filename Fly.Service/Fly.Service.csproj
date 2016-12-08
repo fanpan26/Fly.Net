@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3BE2A16B-B804-4C44-A0B5-434D0137E30E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fly.Service</RootNamespace>
+    <AssemblyName>Fly.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dapper\ArticleService.cs" />
+    <Compile Include="Dapper\CategoryService.cs" />
+    <Compile Include="Dapper\CommentService.cs" />
+    <Compile Include="Dapper\UserHomeMultipleHandler.cs" />
+    <Compile Include="Dapper\UserMessageService.cs" />
+    <Compile Include="Dapper\UserService.cs" />
+    <Compile Include="Dapper\VisitorService.cs" />
+    <Compile Include="DB\DBHelper.cs" />
+    <Compile Include="DB\IMultipleHandler.cs" />
+    <Compile Include="Factory\FlyFactory.cs" />
+    <Compile Include="FlyUserProvider.cs" />
+    <Compile Include="Message\MessageSender.cs" />
+    <Compile Include="Message\MessageTemplate.cs" />
+    <Compile Include="Page\PageHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fly.IService\Fly.IService.csproj">
+      <Project>{7f776fc8-9de1-4819-b1b4-c50ca77fcdc3}</Project>
+      <Name>Fly.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fly.Model\Fly.Model.csproj">
+      <Project>{728d3be5-2d63-40d8-8abb-af469645a563}</Project>
+      <Name>Fly.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fly.Util\Fly.Util.csproj">
+      <Project>{780896ff-b745-4fc9-b518-5df71ebc5ea7}</Project>
+      <Name>Fly.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

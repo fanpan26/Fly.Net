@@ -1,0 +1,135 @@
+﻿@model Fly.Model.ViewModel.ArticleView
+<div class="wrap">
+    <div class="content detail">
+        <h1>@Model.title</h1>
+        <div class="fly-tip fly-detail-hint" data-id="@Model.id">
+            @if (Model.istop)
+            {
+                <span class="fly-tip-stick">置顶帖</span>
+            }
+            @if (Model.iscream)
+            {
+             <span class="fly-tip-jing">精帖</span>
+            }
+            @if (!Model.isover)
+            {
+                <span>未结贴</span>
+            }
+            else
+            {
+                <span class="fly-tip-jie">已采纳</span>
+            }
+            <!-- <span class="jie-admin" type="del" style="margin-left: 20px;">删除</span>
+            <span class="jie-admin" type="set" field="stick" rank="1">置顶</span>
+            <span class="jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span>
+            <span class="jie-admin" type="set" field="status" rank="1">加精</span>
+            <span class="jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> -->
+
+            <div class="fly-list-hint">
+                <i class="iconfont" title="回答">&#xe60c;</i> @Model.comment_count
+                <i class="iconfont" title="人气">&#xe60b;</i> @(Model.visitor_count+1)
+            </div>
+        </div>
+        <div class="detail-about">
+            <a class="jie-user" href="">
+                <img src="@Model.photo" alt="">
+                <cite>
+                    @Model.nickname
+                    <em>@Model.addtimestr</em>
+                </cite>
+            </a>
+            <div class="detail-hits" data-id="{{rows.id}}">
+                <span style="color:#FF7200">悬赏：@Model.reward 飞吻</span>
+                @*<span class="jie-admin" type="edit"><a href="/jie/edit/{{rows.id}}">编辑此贴</a></span>*@
+            </div>
+        </div>
+
+        <div id="div_artcontent_pre" style="display:none;">@Model.artcontent</div>
+        <div id="div_artcontent" class="detail-body photos" style="margin-bottom: 20px;">
+          
+        </div>
+
+        <a name="comment"></a>
+        <h2 class="page-title">热忱回答<span>（<em id="jiedaCount">0</em>）</span></h2>
+        <ul class="jieda photos" id="jieda">
+            
+             <li class="fly-none">没有任何回答</li>
+        </ul>
+
+        <div class="layui-form layui-form-pane">
+            <form action="/reply" method="post">
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-input-block">
+                        <textarea id="L_content" name="content" required lay-verify="required" placeholder="我要回答" class="layui-textarea fly-editor" style="height: 150px;"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <input type="hidden" id="jid" name="jid" value="@Model.id">
+                    <input type="hidden" id="replyid" name="toid" value="0">
+                    <!--默认为原作者，如果有回复人，则为该解答的用户-->
+                    <input type="hidden" name="authorid" value="@Model.userid">
+                    <input type="hidden" id="touserid" name="touserid" value="0">
+                    <button class="layui-btn" lay-filter="*" lay-submit>提交回答</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="edge">
+    @{ 
+        IEnumerable<Fly.Model.ViewModel.ArticleDisplayViewModel> list = ViewBag.RightArticleList as IEnumerable<Fly.Model.ViewModel.ArticleDisplayViewModel>;
+        var visitorList = list.Where(x => x.arttype == 2);
+        var commentList = list.Where(x => x.arttype == 1);
+    }
+   
+    <h3 class="page-title">最近热帖</h3>
+    <ol class="fly-list-one">
+        @foreach (Fly.Model.ViewModel.ArticleDisplayViewModel item in visitorList)
+        {
+
+            <li>
+                <a href="/detail/@item.artid">@item.title</a>
+                <span><i class="iconfont">&#xe60b;</i> @item.artcount</span>
+            </li>
+        }
+    </ol>
+    
+   
+    <h3 class="page-title">近期热议</h3>
+    <ol class="fly-list-one">
+        @foreach (Fly.Model.ViewModel.ArticleDisplayViewModel item in commentList)
+        {
+            <li>
+             <a href="/detail/@item.artid">@item.title</a>
+             <span><i class="iconfont">&#xe60c;</i> @item.artcount</span>
+            </li>
+        }
+    </ol>
+    
+
+</div>
+
+@section scripts{
+    <script>
+        var articleId = '@ViewBag.ArticleId';
+        function detail(fly) {
+            var interval = setInterval(function () {
+                //会有face没加载完的问题
+                if (fly.faces) {
+                    clearInterval(interval);
+                    var elepre = document.getElementById('div_artcontent_pre');
+                    var ele = document.getElementById('div_artcontent');
+                    var c = elepre.innerHTML;
+                    var r = fly.content(c);
+                    ele.innerHTML = r;
+                    elepre.innerHTML = '';
+                }
+            }, 100);
+        }
+
+        layui.use('jie', function () {
+            console.log("加载完jie");
+        });
+    </script>    
+}

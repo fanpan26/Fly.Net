@@ -1,0 +1,12 @@
+﻿<h2 class="page-title">
+    我的消息
+    <button class="layui-btn layui-btn-small layui-hide" id="LAY_delallmsg" style="position: absolute; right: 0;">清空全部消息</button>
+</h2>
+<div id="LAY_minemsg"></div>
+@section scripts{
+    <script>
+        layui.use('user', function () {
+            console.log("加载完user");
+        });
+    </script>
+}

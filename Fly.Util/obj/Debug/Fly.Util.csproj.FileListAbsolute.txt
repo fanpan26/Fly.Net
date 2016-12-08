@@ -1,0 +1,6 @@
+D:\Project\Fly.Net\Fly.Util\bin\Debug\Fly.Util.dll
+D:\Project\Fly.Net\Fly.Util\bin\Debug\Fly.Util.pdb
+D:\Project\Fly.Net\Fly.Util\obj\Debug\Fly.Util.dll
+D:\Project\Fly.Net\Fly.Util\obj\Debug\Fly.Util.pdb
+D:\Project\Fly.Net\Fly.Util\obj\Debug\Fly.Util.csprojResolveAssemblyReference.cache
+D:\Project\Fly.Net\Fly.Util\bin\Debug\JWT.dll

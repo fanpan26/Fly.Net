@@ -1,0 +1,114 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>基于Layui的轻量级问答社区页面模版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="fly,layui,前端社区">
+    <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
+    <link rel="stylesheet" href="/res/layui/css/layui.css">
+    <link rel="stylesheet" href="/res/css/global.css">
+</head>
+<body>
+    <div class="header">
+        <div class="main">
+            <a class="logo" href="/" title="Fly">Fly社区</a>
+            <div class="nav">
+                <a class="nav-this" href="/">
+                    <i class="iconfont icon-wenda"></i>问答
+                </a>
+                <a href="http://www.layui.com/" target="_blank">
+                    <i class="iconfont icon-ui"></i>框架
+                </a>
+            </div>
+
+            <div class="nav-user" id="user_status">
+                <!-- 未登入状态 -->
+                <a class="unlogin" href="user/login.html"><i class="iconfont icon-touxiang"></i></a>
+                <span><a href="/user/login">登入</a><a href="/user/reg">注册</a></span>
+                @*<p class="out-login">
+                    <a href="" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
+                    <a href="" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
+                </p>*@
+
+                <!-- 登入后的状态 -->
+            </div>
+        </div>
+    </div>
+    <div class="main layui-clear">
+        @RenderBody()
+    </div>
+    <div class="footer">
+        <p><a href="http://fly.layui.com/">Fly.NET</a> 2016 &copy; <a href="http://www.layui.com/">layui.com</a></p>
+        <p>
+            <a href="#" target="_blank">Email:645857874@qq.com</a>
+            <a href="#" target="_blank">GitHub地址</a>
+            <a href="#" target="_blank">鸣谢：layui项目作者 贤心</a>
+        </p>
+    </div>
+    <script src="/res/layui/layui.js"></script>
+    <script>
+        //{"userid":17,"nickname":"王祖贤","photo":"/image/photos/001.jpg","account":"zhangsan@126.com","pwd":"","addtime":"/Date(-62135596800000)/","province":null,"city":null,"sign":null,"score":0}
+        var user = localStorage.getItem("fly_user");
+        if (user) {
+            var u = JSON.parse(user);
+            var html = '<a class="avatar" href="/user/index">';
+            html += ' <img name="global_userphoto" src="' + u.photo + '">';
+            html += '  <cite id="global_username">' + u.nickname + '</cite>';
+            html += '    <i>VIP2</i>';
+            html += '  </a>';
+            html += '   <div class="nav">';
+            html += '     <a href="/user/set"><i class="iconfont icon-shezhi"></i>设置</a>';
+            html += '      <a href="javascript:logout()"><i class="iconfont icon-tuichu" style="top: 0; font-size: 22px;"></i>退了</a>';
+            html += '    </div>';
+            document.getElementById('user_status').innerHTML = html;
+
+            layui.cache.user = {
+                username: u.nickname
+             , uid: u.userid
+             , avatar: u.photo
+             , experience: 0
+                // , sex: '男'
+            };
+        } else {
+            clearCookie();
+            layui.cache.user = {
+                username: '游客'
+              , uid: -1
+              , avatar: '../../res/images/avatar/00.jpg'
+              , experience: 83
+                // , sex: '男'
+            };
+        }
+
+        layui.config({
+            version: "1.0.0"
+          , base: '/res/mods/'
+        }).extend({
+            fly: 'index'
+        }).use('fly', function () {
+            if (window["detail"]) {
+                window["detail"](layui.fly);
+            }
+        });
+
+        function logout() {
+            localStorage.clear();
+            clearCookie();
+            location.href = "/";
+        }
+        function clearCookie() {
+            console.log("清除登录cookie");
+            setCookie("FLY", "", -1);
+            localStorage.clear();
+        }
+        function setCookie(name, value, expires) {
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate() + expires);
+            document.cookie = name + '=' + value + ';expires=' + oDate;
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

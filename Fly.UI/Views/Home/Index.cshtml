@@ -1,0 +1,101 @@
+﻿
+@model Fly.Model.Common.PageView<Fly.Model.ViewModel.ArticleView>
+<div class="wrap">
+    <div class="content" style="margin-right:0">
+        <div class="fly-tab">
+            @{ 
+                var t = Request.QueryString["t"];
+                var cArr = new string[4];
+                cArr[0] = (t == "0" || t == null) ? "tab-this" : "";
+                cArr[1] = t == "1" ? "tab-this" : "";
+                cArr[2] = t == "2" ? "tab-this" : "";
+                cArr[3] = t == "3" ? "tab-this" : "";
+            }
+            <span>
+                <a href="/?t=0" class= "@cArr[0]">全部</a>
+                <a href="/?t=1" class= "@cArr[1]">未结帖</a>
+                <a href="/?t=2" class= "@cArr[2]">已采纳</a>
+                <a href="/?t=3" class= "@cArr[3]">精帖</a>
+                <a href="/user/index.html">我的帖</a>
+            </span>
+            <form action="http://cn.bing.com/search" class="fly-search">
+                <i class="iconfont icon-sousuo"></i>
+                <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">
+            </form>
+            <a href="/add" class="layui-btn jie-add">发布问题</a>
+        </div>
+
+        @if (Model.TotalCount > 0)
+        {
+            foreach (Fly.Model.ViewModel.ArticleView article in Model.List)
+            {
+            <ul class="fly-list">
+                <li class="fly-list-li">
+                    <a href="user/home.html" class="fly-list-avatar">
+                        <img src="@article.photo" alt="">
+                    </a>
+                    <h2 class="fly-tip">
+                        <a href="/detail/@article.id">@article.title</a>
+                        @if (article.istop)
+                        {
+                        <span class="fly-tip-stick">置顶</span>
+                        }
+                        @if (article.iscream)
+                        {
+                        <span class="fly-tip-jing">精帖</span>
+                        }
+                    </h2>
+                    <p>
+                        <span><a href="#">@article.nickname</a></span>
+                        <span>@article.addtimestr</span>
+                        <span>@article.category_name</span>
+                        <span class="fly-list-hint">
+                            <i class="iconfont" title="回答">&#xe60c;</i> @article.comment_count
+                            <i class="iconfont" title="人气">&#xe60b;</i> @article.visitor_count
+                        </span>
+                    </p>
+                </li>
+            </ul>
+                    }
+        }
+        else{
+            <div class="fly-none">并无相关数据</div>
+        }
+
+        <div style="text-align: center" id="fly_page"> 
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        var page = {
+            curr: parseInt('@Model.PageIndex'),
+            pages: parseInt('@Model.TotalPageCount'),
+            need: parseInt('@Model.List.Count()') > 0
+        };
+
+        layui.use(['laypage', 'layer'], function () {
+            var laypage = layui.laypage;
+            if (page.need) {
+                laypage({
+                    cont: 'fly_page'
+                    , pages: page.pages
+                    , first: 1
+                    , curr: page.curr
+                    , last: page.pages
+                    , prev: '<em><</em>'
+                    , next: '<em>></em>',
+                    jump: function (obj, first) {
+                        var curr = obj.curr;
+                        if (curr == page.curr) { return; } else {
+                            location.href = '/pages/' + curr;
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}

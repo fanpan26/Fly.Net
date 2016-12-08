@@ -1,0 +1,51 @@
+﻿@model Fly.Model.Common.PageView<Fly.Model.ViewModel.ArticleView>
+<table class="layui-table">
+    <colgroup>
+        <col width="600">  
+    </colgroup>
+    <thead>
+        <tr>
+            <th>标题</th>
+            <th>发布时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List)
+        {
+        <tr>
+            <td><a href="#">@item.title</a></td>
+            <td>@item.addtime</td>
+            <td><div class="fly-tip">
+                @if (item.istop)
+                {
+                <span class="fly-tip-stick">置顶</span>
+                }
+                @if (item.iscream)
+                {
+                 <span class="fly-tip-jing">精</span> 
+                }
+                @if (item.isover)
+                {
+                <span class="fly-tip-jie">已结帖</span>
+                }
+                else
+                {
+                    <span>未结帖</span>
+                }
+                </div></td>
+            <td>
+            @{ 
+                var jingTxt = item.iscream ? "取消精帖" : "加精";
+                var topTxt = item.istop ? "取消置顶" : "置顶";
+            }
+                <button class="layui-btn  layui-btn-mini" admin-event="addCream" data-id="@item.id" data-iscream="@item.iscream" data-userid="@item.userid">@jingTxt</button>
+                <button class="layui-btn  layui-btn-mini" admin-event="addTop" data-id="@item.id" data-istop="@item.istop" data-userid="@item.userid">@topTxt</button>
+                @*<button class="layui-btn layui-btn-danger layui-btn-mini">删除</button></td>*@
+        </tr>
+                }
+    </tbody>
+</table>
+<div style="text-align: center" id="fly_page">
+</div>
